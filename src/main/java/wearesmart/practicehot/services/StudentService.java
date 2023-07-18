@@ -12,5 +12,4 @@ public interface StudentService {
     StudentDTO saveStudent(StudentDTO studentDTO);
 
     void deleteStudentById(Long id);
-    void transfer(Long studentId, Long targetClassId);
 }

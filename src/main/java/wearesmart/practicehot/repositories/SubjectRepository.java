@@ -1,6 +1,8 @@
 package wearesmart.practicehot.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import wearesmart.practicehot.models.Subject;
 
@@ -16,4 +18,8 @@ public interface SubjectRepository extends JpaRepository<Subject, Long> {
     Subject save(Subject subject);
 
     void deleteById(Long id);
+
+    @Query("SELECT s FROM Subject s JOIN s.schoolClasses sc JOIN sc.students st WHERE st.id = :studentId")
+    List<Subject> findSubjectsByStudentId(@Param("studentId") Long studentId);
+
 }

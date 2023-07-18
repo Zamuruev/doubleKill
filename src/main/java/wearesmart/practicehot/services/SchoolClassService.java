@@ -14,4 +14,5 @@ public interface SchoolClassService {
     void deleteClassById(Long id);
 
     void transferStudentToClass(Long studentId, Long classId);
+
 }

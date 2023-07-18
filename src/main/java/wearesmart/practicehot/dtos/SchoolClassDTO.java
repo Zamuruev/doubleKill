@@ -21,7 +21,6 @@ public class SchoolClassDTO {
 
     // Геттеры и сеттеры
 
-
     public Long getId() {
         return id;
     }

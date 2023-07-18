@@ -46,4 +46,14 @@ public class SubjectController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/find/{studentId}")
+    public ResponseEntity<List<SubjectDTO>> getSubjectsByStudentId(@PathVariable Long studentId) {
+        List<SubjectDTO> subjects = subjectService.getSubjectsByStudentId(studentId);
+        if (subjects.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(subjects);
+        }
+    }
 }

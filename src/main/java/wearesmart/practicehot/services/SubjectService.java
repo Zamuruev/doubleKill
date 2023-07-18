@@ -16,4 +16,7 @@ public interface SubjectService {
     void removeSubjectFromClass(Long id);
 
     void removeSubjectFromTeacher(Long id);
+
+
+    List<SubjectDTO> getSubjectsByStudentId(Long studentId);
 }

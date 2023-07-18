@@ -153,6 +153,6 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
 
 
         // Выполнение перевода студента из одного класса в другой
-        studentService.transfer(student1.getId(), schoolClass2.getId());
+        schoolClassService.transferStudentToClass(student1.getId(), schoolClass2.getId());
     }
 }

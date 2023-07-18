@@ -3,6 +3,7 @@ package wearesmart.practicehot.services.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import wearesmart.practicehot.dtos.SchoolClassDTO;
 import wearesmart.practicehot.models.SchoolClass;
 import wearesmart.practicehot.models.Student;
@@ -44,7 +45,7 @@ public class SchoolClassServiceImpl implements SchoolClassService {
     public void deleteClassById(Long id) {
         schoolClassRepository.deleteById(id);
     }
-
+    @Transactional
     public void transferStudentToClass(Long studentId, Long targetClassId) {
         Optional<SchoolClass> optionalTargetClass = schoolClassRepository.findById(targetClassId);
         if (optionalTargetClass.isPresent()) {
@@ -53,7 +54,7 @@ public class SchoolClassServiceImpl implements SchoolClassService {
                     .filter(student -> student.getId().equals(studentId))
                     .findFirst();
             if (optionalStudent.isPresent()) {
-                // Найден студент в целевом классе - ничего не делаем
+                // Найден студент в будущем классе - ничего не делаем
                 return;
             }
 
@@ -105,11 +106,8 @@ public class SchoolClassServiceImpl implements SchoolClassService {
     private SchoolClass convertToEntity(SchoolClassDTO schoolClassDTO) {
         SchoolClass schoolClass = modelMapper.map(schoolClassDTO, SchoolClass.class);
         List<Student> students = schoolClassDTO.getStudentIds().stream()
-                .map(id -> {
-                    Student student = new Student();
-                    student.setId(id);
-                    return student;
-                })
+                .map(id -> { Student student = new Student(); student.setId(id);
+                    return student; })
                 .collect(Collectors.toList());
         schoolClass.setStudents(students);
         List<Teacher> teachers = schoolClassDTO.getTeacherIds().stream()

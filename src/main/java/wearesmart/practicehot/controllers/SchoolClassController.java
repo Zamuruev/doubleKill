@@ -47,4 +47,5 @@ public class SchoolClassController {
         schoolClassService.transferStudentToClass(studentId, classId);
         return ResponseEntity.ok().build();
     }
+
 }

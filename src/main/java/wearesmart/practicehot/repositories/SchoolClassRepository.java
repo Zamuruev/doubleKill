@@ -20,4 +20,6 @@ public interface SchoolClassRepository extends JpaRepository<SchoolClass, Long> 
 
     @Query("SELECT sc FROM SchoolClass sc JOIN sc.students s WHERE s.id = :studentId")
     Optional<SchoolClass> findByStudentId(@Param("studentId") Long studentId);
+
+
 }

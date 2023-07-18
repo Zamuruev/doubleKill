@@ -49,30 +49,6 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteById(id);
     }
 
-    @Override
-    @Transactional
-    public void transfer(Long studentId, Long targetClassId) {
-        Optional<Student> optionalStudent = studentRepository.findById(studentId);
-        if (optionalStudent.isPresent()) {
-            Student student = optionalStudent.get();
-            Optional<SchoolClass> optionalTargetClass = schoolClassRepository.findById(targetClassId);
-            if (optionalTargetClass.isPresent()) {
-                SchoolClass targetClass = optionalTargetClass.get();
-                Optional<SchoolClass> optionalCurrentClass = schoolClassRepository.findByStudentId(studentId);
-                if (optionalCurrentClass.isPresent()) {
-                    SchoolClass currentClass = optionalCurrentClass.get();
-                    if (!currentClass.getId().equals(targetClassId)) {
-                        Hibernate.initialize(currentClass.getStudents()); // Инициализировать коллекцию внутри транзакции
-                        currentClass.getStudents().remove(student);
-                        targetClass.getStudents().add(student);
-                        student.setSchoolClass(targetClass);
-                        schoolClassRepository.save(currentClass);
-                        schoolClassRepository.save(targetClass);
-                    }
-                }
-            }
-        }
-    }
 
     // Методы маппинга
     private StudentDTO convertToDTO(Student student) {

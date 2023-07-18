@@ -95,6 +95,14 @@ public class SubjectServiceImpl implements SubjectService {
         return subjectDTO;
     }
 
+    @Override
+    public List<SubjectDTO> getSubjectsByStudentId(Long studentId) {
+        List<Subject> subjects = subjectRepository.findSubjectsByStudentId(studentId);
+        return subjects.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private Subject convertToEntity(SubjectDTO subjectDTO) {
         Subject subject = modelMapper.map(subjectDTO, Subject.class);
         List<SchoolClass> schoolClasses = subjectDTO.getSchoolClassIds().stream()

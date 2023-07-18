@@ -1,7 +1,6 @@
 package wearesmart.practicehot.models;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.Cascade;
 
 
 import java.util.*;
